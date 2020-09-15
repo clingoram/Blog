@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditMemberidToUsers extends Migration
+class EditForeignkeycolumnToArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class EditMemberidToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('memebr_id')->change()->comment('會員ID');
+        // Schema::table('articles', function (Blueprint $table) {
+        //     //
+        // });
+
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropForeign('user_id');
         });
     }
 
@@ -25,7 +29,7 @@ class EditMemberidToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             //
         });
     }
