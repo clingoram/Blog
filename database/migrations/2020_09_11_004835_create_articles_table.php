@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
         if(!Schema::hasTable('articles')){
 
             Schema::create('articles', function (Blueprint $table) {
-                $table->id('id');
+                $table->unsignedInteger('id');
                 $table->char('title',200)->connemt('標題');
                 $table->integer('status')->default(1)->comment('文章狀態，隱藏2、刪除0、開啟1');
                 $table->string('content')->comment('內容');

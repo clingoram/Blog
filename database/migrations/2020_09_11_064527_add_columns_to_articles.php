@@ -16,9 +16,9 @@ class AddColumnsToArticles extends Migration
         if (!Schema::hasColumn('articles', 'user_id')) {
             Schema::disableForeignKeyConstraints();
             Schema::table('articles', function (Blueprint $table) {
-                $table->integer('user_id')->unsigned();
+                $table->unsignedInteger('user_id');
 
-                $table->foreign('user_id')->references('memebr_id')->on('users')->onUpdate('cascade');
+                //$table->foreign('user_id')->references('memebr_id')->on('users')->onUpdate('cascade');
             });
         }
     }

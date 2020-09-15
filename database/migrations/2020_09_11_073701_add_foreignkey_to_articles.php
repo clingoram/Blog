@@ -13,10 +13,12 @@ class AddForeignkeyToArticles extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::table('articles', function (Blueprint $table) {
-            $table->foreign('user_id')->references('memebr_id')->on('users')->onUpdate('cascade');
-        });
+        if (!Schema::hasColumn('articles', 'user_id')) {
+            Schema::disableForeignKeyConstraints();
+            Schema::table('articles', function (Blueprint $table) {
+                $table->foreign('user_id')->references('memberid')->on('users')->onUpdate('cascade');
+            });
+        }
     }
 
     /**
