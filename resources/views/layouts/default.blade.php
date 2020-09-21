@@ -9,7 +9,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-    <div id="app">
+    {{-- <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </nav>
-
+    </div> --}}
     <div id='app'></div>
     <div class="container">
         @yield('content')
