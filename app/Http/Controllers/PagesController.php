@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 // 頁面連結
-
 class PagesController extends Controller
 {
     // 首頁
@@ -23,10 +22,11 @@ class PagesController extends Controller
     }
 
     // 新增文章
-    public function new_story(){
-        $title ='New';
-        return view('pages.new_story')->with('title',$title);
-    }
+    // public function new_story(){
+    //     $title ='New';
+    //     return view('articles.new_story')->with('title',$title);
+    // }
+
     // 設定網站(名稱)
     public function settings(){
         $data = array(
