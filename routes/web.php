@@ -28,7 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','PagesController@index');
 Route::get('/about','PagesController@about');
 Route::get('/settings','PagesController@settings');
-Route::get('/new_story','PagesController@new_story');
+// Route::get('/new_story','PagesController@new_story');
 
 // db,articlecontroller
 Route::resource('articles','ArticlesController');

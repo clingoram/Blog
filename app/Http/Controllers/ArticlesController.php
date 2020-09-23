@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// get table
+use App\Article;
+use Illuminate\Support\Facades\DB;
+
 // 文章
 // 打上:php artisan make:controller XxxController --resource
 // 就會出現內建的index、create、store....
@@ -19,8 +23,9 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        // 文章本身頁面
-        return view('articles.index');
+        // $articles = Article::all();
+        $articles = DB::table('articles')->get();
+        return view('articles.index')->with('articles',$articles);
     }
 
     /**
@@ -30,7 +35,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('articles.new_story');
     }
 
     /**
@@ -52,7 +58,9 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        //
+        // $article = Article::find($id);
+        $article = DB::table('articles')->find($id);
+        return view('articles.show')->with('article',$article);
     }
 
     /**

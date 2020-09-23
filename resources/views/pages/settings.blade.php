@@ -1,3 +1,4 @@
+{{-- 網站設定 --}}
 @extends('layouts.app')
 
 @section('content')

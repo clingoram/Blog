@@ -1,3 +1,4 @@
+{{-- 新增文章 --}}
 @extends('layouts.app')
 
 @section('content')

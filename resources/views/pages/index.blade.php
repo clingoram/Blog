@@ -1,3 +1,4 @@
+{{-- 首頁 --}}
 @extends('layouts.app')
 
 @section('content')
