@@ -49,7 +49,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Story</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/new_story">Write a story</a>
+                                    {{-- <a class="dropdown-item" href="/new_story">Write a story</a> --}}
                                     <a class="dropdown-item" href="/articles">Your stories</a>
                                     {{-- <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Separated link</a> --}}
@@ -98,8 +98,8 @@
         </nav>
 
         <main class="py-4 container">
-            @yield('content')
-            
+            @include('inc.messages')
+            @yield('content')    
         </main>
         <main class="py-4 container">
             @include('layouts.footer')
