@@ -33,6 +33,6 @@ class PagesController extends Controller
             'title'=> 'Settings',
             'service'=> ['no service','web']
         );
-        return view('pages.settings')->with($data);
+        return view('managements.settings')->with($data);
     }
 }

@@ -24,8 +24,9 @@ class ArticlesController extends Controller
     public function index()
     {
         // $articles = Article::all();
-        $articles = DB::table('articles')->get();
+        $articles = DB::table('articles')->orderBy('id','desc')->get();
         return view('articles.index')->with('articles',$articles);
+
     }
 
     /**
@@ -35,8 +36,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        
-        return view('articles.new_story');
+        $title ='New Story';
+        return view('articles.new_story')->with('title',$title);
     }
 
     /**
@@ -47,7 +48,18 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'title'=> 'required',
+            'content'=>'required'
+        ]);
+        
+        $article = DB::table('articles')->insert(
+            ['title' => $request->input('title')],
+            ['status'=> $request->checkbox('status')],
+            ['content' => $request->input('content')]
+        );
+
+        return redirect('/articles')->witch('success','Article new_story');
     }
 
     /**
