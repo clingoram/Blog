@@ -55,9 +55,15 @@ class ArticlesController extends Controller
         
         $article = DB::table('articles')->insert(
             ['title' => $request->input('title')],
-            ['status'=> $request->checkbox('status')],
-            ['content' => $request->input('content')]
+            ['content' => $request->input('content')],
+            ['user_id' => 1]
+            // ['status'=> $request->checkbox('status')],
         );
+        // $article = new Article;
+        // $article->title = $request->input('title');
+        // $article->content = $request->input('content');
+        // $article->user_id = 1; //auth()->id;
+        // $article->save();
 
         return redirect('/articles')->witch('success','Article new_story');
     }

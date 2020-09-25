@@ -49,14 +49,14 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Story</a>
                                 <div class="dropdown-menu">
-                                    {{-- <a class="dropdown-item" href="/new_story">Write a story</a> --}}
+                                    <a class="dropdown-item" href="/articles/new_story">Write a story</a>
                                     <a class="dropdown-item" href="/articles">Your stories</a>
                                     {{-- <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Separated link</a> --}}
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/settings">Settings</a>
+                                <a class="nav-link" href="/managements/settings">Settings</a>
                             </li>
                              {{-- <li class="nav-item">
                                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
