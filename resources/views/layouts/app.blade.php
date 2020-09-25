@@ -41,28 +41,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Story</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/articles/new_story">Write a story</a>
-                                    <a class="dropdown-item" href="/articles">Your stories</a>
-                                    {{-- <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a> --}}
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/managements/settings">Settings</a>
-                            </li>
-                             {{-- <li class="nav-item">
-                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                            </li> --}}
-                        </ul>
-
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -71,9 +49,30 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
+
                             @endif
                         @else
-                          
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Story</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/articles/new_story">Write a story</a>
+                                        <a class="dropdown-item" href="/articles">Your stories</a>
+                                        {{-- <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a> --}}
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/sitesettings/settings">Settings</a>
+                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                </li> --}}
+                            </ul>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
