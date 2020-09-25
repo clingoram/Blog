@@ -28,11 +28,11 @@ class PagesController extends Controller
     // }
 
     // 設定網站(名稱)
-    public function settings(){
-        $data = array(
-            'title'=> 'Settings',
-            'service'=> ['no service','web']
-        );
-        return view('managements.settings')->with($data);
-    }
+    // public function settings(){
+    //     $data = array(
+    //         'title'=> 'Settings',
+    //         'service'=> ['no service','web']
+    //     );
+    //     return view('sitesettings.settings')->with($data);
+    // }
 }

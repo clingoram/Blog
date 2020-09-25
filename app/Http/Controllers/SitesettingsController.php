@@ -1,20 +1,11 @@
 <?php
-
-// Controller從Model拿資料。Model是PHP的物件，負責處理跟資料庫的互動跟資料庫的互動(拿取資料)
+// 網站設定
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-// get table
-use App\Article;
 use Illuminate\Support\Facades\DB;
 
-// 文章
-// 打上:php artisan make:controller XxxController --resource
-// 就會出現內建的index、create、store....
-
-
-class ArticlesController extends Controller
+class SitesettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,10 +14,8 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        // $articles = Article::all();
-        $articles = DB::table('articles')->orderBy('id','desc')->get();
-        return view('articles.index')->with('articles',$articles);
-
+        $management = DB::table('sitesettings')->orderBy('id','desc')->get();
+        return view('managements.index')->with('managements',$management);
     }
 
     /**
@@ -36,8 +25,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        $title ='New Story';
-        return view('articles.new_story')->with('title',$title);
+        //
     }
 
     /**
@@ -48,24 +36,7 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'=> 'required',
-            'content'=>'required'
-        ]);
-        
-        $article = DB::table('articles')->insert(
-            ['title' => $request->input('title')],
-            ['content' => $request->input('content')],
-            ['user_id' => 1]
-            // ['status'=> $request->checkbox('status')],
-        );
-        // $article = new Article;
-        // $article->title = $request->input('title');
-        // $article->content = $request->input('content');
-        // $article->user_id = 1; //auth()->id;
-        // $article->save();
-
-        return redirect('/articles')->witch('success','Article new_story');
+        //
     }
 
     /**
@@ -77,8 +48,8 @@ class ArticlesController extends Controller
     public function show($id)
     {
         // $article = Article::find($id);
-        $article = DB::table('articles')->find($id);
-        return view('articles.show')->with('article',$article);
+        $management = DB::table('sitesettings')->find($id);
+        return view('sitesettings.settings')->with('managements',$management);
     }
 
     /**
