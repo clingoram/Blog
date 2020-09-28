@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 // get table
 use App\Article;
+// use Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // 文章
 // 打上:php artisan make:controller XxxController --resource
@@ -36,8 +38,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        $title ='New Story';
-        return view('articles.new_story')->with('title',$title);
+        // $title ='New Story';
+        // return view('articles.new_story')->with('title',$title);
     }
 
     /**
@@ -56,7 +58,7 @@ class ArticlesController extends Controller
         $article = DB::table('articles')->insert(
             ['title' => $request->input('title')],
             ['content' => $request->input('content')],
-            ['user_id' => 1]
+            ['user_id' => auth()->user()->id]
             // ['status'=> $request->checkbox('status')],
         );
         // $article = new Article;
@@ -76,9 +78,20 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
+   
         // $article = Article::find($id);
-        $article = DB::table('articles')->find($id);
-        return view('articles.show')->with('article',$article);
+        // $article = DB::table('articles')->find($id);
+        // return view('articles.show')->with('article',$article);
+
+        $a_id = DB::table('articles')->find($id);
+        if($a_id == ''){
+            // 新增
+            $title ='New Story';
+            return view('articles.new_story')->with('title',$title);
+        }else{
+            return view('articles.show')->with('article',$a_id);
+        }
+
     }
 
     /**

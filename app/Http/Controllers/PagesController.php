@@ -24,6 +24,7 @@ class PagesController extends Controller
     // 新增文章
     // public function new_story(){
     //     $title ='New';
+    //     // folder:articles
     //     return view('articles.new_story')->with('title',$title);
     // }
 
