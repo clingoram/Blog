@@ -13,6 +13,9 @@ class Article extends Model
     // // timestamps
     // public $timestamps = false;
 
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
 }
