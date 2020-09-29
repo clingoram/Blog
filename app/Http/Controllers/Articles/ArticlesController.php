@@ -10,6 +10,7 @@ use App\Article;
 // use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Log;
 
 // 文章
 // 打上:php artisan make:controller XxxController --resource
@@ -49,25 +50,26 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        // to get user data
+        $login_user_data = Auth::user();
+        // print_r($user);
+
         $this->validate($request,[
             'title'=> 'required',
             'content'=>'required'
         ]);
-        
-        $article = DB::table('articles')->insert(
-            ['title' => $request->input('title')],
-            ['content' => $request->input('content')],
-            ['user_id' => auth()->user()->id]
-            // ['status'=> $request->checkbox('status')],
-        );
-        // $article = new Article;
-        // $article->title = $request->input('title');
-        // $article->content = $request->input('content');
-        // $article->user_id = 1; //auth()->id;
+ 
+        $article = new Article;
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->user_id = $login_user_data->id;
+        // $a = DB::table('articles')->toSql();
+
         // $article->save();
 
-        return redirect('/articles')->witch('success','Article new_story');
+        return redirect('/articles')->with('success','Article new_story');
+
     }
 
     /**
@@ -83,13 +85,13 @@ class ArticlesController extends Controller
         // $article = DB::table('articles')->find($id);
         // return view('articles.show')->with('article',$article);
 
-        $a_id = DB::table('articles')->find($id);
-        if($a_id == ''){
+        $articles = DB::table('articles')->find($id);
+        if($articles == ''){
             // 新增
             $title ='New Story';
             return view('articles.new_story')->with('title',$title);
         }else{
-            return view('articles.show')->with('article',$a_id);
+            return view('articles.show')->with('articles',$articles);
         }
 
     }
@@ -102,7 +104,8 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = DB::table('articles')->find($id);
+        return view('articles.edit')->with('article',$article);
     }
 
     /**

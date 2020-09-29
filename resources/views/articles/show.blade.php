@@ -3,8 +3,12 @@
 
 @section('content')
     <p> <a href="/articles">Go back</a></p>
-    <h1>{{$a_id->title}}</h1>
-    <p>{{$a_id->content}}</p>
-    <small>{{ $a_id->created_at}}</small>
+    <h1>{{ $articles->title }}
+        <button type="button">
+            <i class="far fa-edit"></i>
+        </button>
+    </h1>
+    <p>{{ $articles->content }}</p>
+    <small>{{ $articles->created_at }}</small>
 
 @endsection
