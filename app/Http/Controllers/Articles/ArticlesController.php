@@ -19,6 +19,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +38,12 @@ class ArticlesController extends Controller
     public function index()
     {
         // $articles = Article::all();
-        $articles = DB::table('articles')->orderBy('id','desc')->get();
+
+        // get login member id
+        $login_user_data = Auth::user()->id;
+
+        $articles = DB::table('articles')->where('user_id','=',$login_user_data)->orderBy('id','desc')->get();
+
         return view('articles.index')->with('articles',$articles);
 
     }
@@ -53,7 +69,6 @@ class ArticlesController extends Controller
     {   
         // to get user data
         $login_user_data = Auth::user();
-        // print_r($user);
 
         $this->validate($request,[
             'title'=> 'required',
@@ -66,9 +81,9 @@ class ArticlesController extends Controller
         $article->user_id = $login_user_data->id;
         // $a = DB::table('articles')->toSql();
 
-        // $article->save();
+        $article->save();
 
-        return redirect('/articles')->with('success','Article new_story');
+        return redirect('/articles')->with('success','New post');
 
     }
 
@@ -84,7 +99,6 @@ class ArticlesController extends Controller
         // $article = Article::find($id);
         // $article = DB::table('articles')->find($id);
         // return view('articles.show')->with('article',$article);
-
         $articles = DB::table('articles')->find($id);
         if($articles == ''){
             // 新增

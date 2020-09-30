@@ -3,12 +3,24 @@
 
 @section('content')
     <p> <a href="/articles">Go back</a></p>
-    <h1>{{ $articles->title }}
-        <button type="button">
-            <i class="far fa-edit"></i>
-        </button>
-    </h1>
-    <p>{{ $articles->content }}</p>
-    <small>{{ $articles->created_at }}</small>
+
+    <div class="card">
+        <div class="card-header">
+            <h6>{{ $articles->created_at }} </h6>
+            
+            <button type="button" class="btn btn-primary btn-sm">
+                <i class="far fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+            </button>
+
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ $articles->title }}</h3>
+          <p class="card-text">{{ $articles->content }}</p>
+        </div>
+    </div>
+
 
 @endsection

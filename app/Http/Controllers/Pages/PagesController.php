@@ -4,15 +4,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // 頁面連結
 class PagesController extends Controller
 {
     // 首頁
     public function index(){
-        $title = 'My Blog';
-        // return view('pages.index',compact('title'));
-        return view('pages.index')->with('title',$title);
+
+        $member_login = Auth::user();
+        if($member_login == ''){
+            $intro = 'Laravel Blog';
+
+        }else{
+            $intro = 'Welcome Back,'.$member_login->name.'.';
+        }
+        return view('pages.index')->with('title',$intro);
 
     }
 

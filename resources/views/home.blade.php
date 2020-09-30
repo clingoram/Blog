@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <a class="dropdown-item" href="/articles/new_story">Write a story</a>
                 </div>
             </div>
         </div>
