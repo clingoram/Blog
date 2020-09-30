@@ -5,7 +5,7 @@
 
     @if(count($articles) >= 1)
         <h1>Your stories</h1>
-        <table id="show_list"  class="display" cellspacing="0" width="100%">
+        <table>
             <thead>
             </thead>
             <tfoot>
@@ -16,13 +16,12 @@
                     <a href="/articles/{{ $key->id }}">{{ $key->title }}</a> 
                     <small>{{ $key->created_at }}</small>
 
-                    <a href="/articles/{{$key->id}}/edit" class="btn btn-danger btn-xs edit_status" id="edit_{{$key->id}}" title="edit"></a>
-                    <i class="far fa-edit"></i>
+                    <a href="/articles/{{$key->id}}/edit" id="edit_{{$key->id}}" title="edit"><i class="far fa-edit"></i></a>
 
                     <p>{{ $key->content }}</p>
                 @endforeach
             </tbody>
-            </table>
+        </table>
 
         {{-- <div class="card">
             <ul class="list-group list-group-flush">
