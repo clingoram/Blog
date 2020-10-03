@@ -119,7 +119,7 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = DB::table('articles')->find($id);
-        return view('articles.edit')->with('article',$article);
+        return view('articles.edit')->with('articles',$article);
     }
 
     /**
@@ -131,7 +131,24 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // to get user data
+        $login_user_data = Auth::user();
+
+        $this->validate($request,[
+            'title'=> 'required',
+            'content'=>'required'
+        ]);
+ 
+        $article = Article::find($id);
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->user_id = $login_user_data->id;
+        $article->updated_at = date("Y-m-d h:i:s a", time());
+        // $a = DB::table('articles')->toSql();
+
+        $article->save();
+
+        return redirect('/articles')->with('success','Post updated.');
     }
 
     /**
@@ -142,6 +159,6 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
@@ -25,10 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-        // $user_id = Auth::user();
+        // return view('home');
+
+        $user_id = Auth::user();
         // $user = User::find($user_id);
-        // return view('home')->with('articles',$user->articles);
+        // dd($user);
+        return view('home')->with('articles',$user_id->articles);
 
     }
 }

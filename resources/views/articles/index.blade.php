@@ -17,7 +17,7 @@
                         <th scope="row"></th>
                         <td> <a href="/articles/{{ $key->id }}">{{ $key->title }}</a> </td>
                         <td> <p>{{ $key->content }}</p></td>
-                        <td> <small>{{ $key->created_at }}</small></td>
+                        <td> <small>{{ $key->updated_at }}</small></td>
                         <td> <a href="/articles/{{$key->id}}/edit" id="edit_{{$key->id}}" title="Edit"><i class="far fa-edit"></i></a></td> 
                     </tr>    
                 @endforeach

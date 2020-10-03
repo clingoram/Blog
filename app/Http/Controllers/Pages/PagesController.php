@@ -15,12 +15,10 @@ class PagesController extends Controller
         $member_login = Auth::user();
         if($member_login == ''){
             $intro = 'Laravel Blog';
-
         }else{
             $intro = 'Welcome Back,'.$member_login->name.'.';
         }
         return view('pages.index')->with('title',$intro);
-
     }
 
     public function about(){
