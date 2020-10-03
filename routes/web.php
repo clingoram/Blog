@@ -23,9 +23,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/','PagesController@index');
+// Route::get('/{account}',function($account = null){
+//     return 'PagesController@index';
+// });
+
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/','PagesController@index');
 // Route::get('/about','PagesController@about');
 
 // db,articlecontroller
