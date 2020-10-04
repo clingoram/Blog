@@ -37,6 +37,6 @@ Route::resource('articles','ArticlesController');
 
 Route::resource('sitesettings','SitesettingsController');
 
-// Route::get('/users/{id}',function($id = null){
-//     return 'This user id is:'.$id;
+// Route::group(['prefix'=>'post'], function(){
+//     Route::get('/', 'PagesController@index');
 // });

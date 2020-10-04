@@ -131,7 +131,7 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // to get user data
+        // to get login user data
         $login_user_data = Auth::user();
 
         $this->validate($request,[
@@ -159,6 +159,8 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        
+        // $article = Article::find($id);
+        // $article->delete();
+        // return redirect('/articles')->with('success','Post removed!!');
     }
 }
