@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUseridToArticles extends Migration
+class AddImagesToArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class AddUseridToArticles extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('articles')){
-            Schema::table('articles', function (Blueprint $table) {
-                $table->unsignedInteger('user_id')->comment('會員ID');
-                
-            });
-        }
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('images');
+        });
     }
 
     /**
@@ -29,7 +26,7 @@ class AddUseridToArticles extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            //
+            $table->dropColumn('images');
         });
     }
 }

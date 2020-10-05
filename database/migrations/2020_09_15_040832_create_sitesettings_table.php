@@ -15,11 +15,11 @@ class CreateSitesettingsTable extends Migration
     {
         if(!Schema::hasTable('sitesettings')){
             Schema::create('sitesettings', function (Blueprint $table) {
-                $table->unsignedInteger('id');
-                $table->timestamps();
+                $table->bigIncrements('id');
                 $table->integer('memberid')->unsigned()->comment('會員ID');
                 $table->foreign('memberid')->references('memberid')->on('users')->onDelete('cascade');
                 $table->string('site_status')->default('on')->comment('網站開關，on、off');
+                $table->timestamps();
             });
         }
     }
