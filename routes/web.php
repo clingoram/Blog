@@ -24,8 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/','PagesController@index');
-// Route::get('/{account}',function($account = null){
-//     return 'PagesController@index';
+// Route::get('/{name?}','PagesController@index');
+
+
+// Route::get('/{name?}',function($name = null){
+//     return redirect()->action('PagesController@index');
 // });
 
 Route::get('/home', 'HomeController@index')->name('home');

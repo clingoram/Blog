@@ -13,19 +13,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-            $table->unsignedBigInteger('memberid')->comment('會員ID')->unique();
-            $table->integer('status')->default(1)->comment('會員狀態，1=開啟，0=刪除，2=封鎖');
-            $table->string('role')->comment('R=管理員、M=會員');
-            $table->time('register_time')->comment('註冊時間');
-        });
+        if(!Schema::hasTable('users')){
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email');
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->rememberToken();
+                $table->timestamps();
+                // $table->unsignedBigInteger('memberid')->comment('會員ID')->unique();
+                $table->integer('status')->default(1)->comment('會員狀態，1=開啟，0=刪除，2=封鎖');
+                $table->string('role')->comment('R=管理員、M=會員');
+                $table->time('register_time')->comment('註冊時間');
+            });
+        }
 
     }
 

@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        {{-- <a class="dropdown-item" href="/articles">Your stories</a> --}}
                     </ul>
                     
                     <!-- Right Side Of Navbar -->
@@ -52,7 +52,8 @@
                                 </li>
 
                             @endif
-                        @else
+                            @else
+                            
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
@@ -61,7 +62,7 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Story</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/articles/new_story">Write a story</a>
-                                        <a class="dropdown-item" href="/articles">Your stories</a>
+                                        <a class="dropdown-item" href="/articles">Stories</a>
                                         {{-- <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Separated link</a> --}}
                                     </div>

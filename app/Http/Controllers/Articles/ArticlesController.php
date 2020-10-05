@@ -27,7 +27,7 @@ class ArticlesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except'=>['index','show']]);
     }
 
     /**
@@ -55,8 +55,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        // $title ='New Story';
-        // return view('articles.new_story')->with('title',$title);
+        return view('articles.new_story');
     }
 
     /**
@@ -119,6 +118,10 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = DB::table('articles')->find($id);
+        // 改url id
+        if(auth::user()->id !== $article->user_id){
+            return redirect('/')->with('error','Error!!The permission is denied.');
+        }
         return view('articles.edit')->with('articles',$article);
     }
 
@@ -159,8 +162,11 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        // $article = Article::find($id);
-        // $article->delete();
-        // return redirect('/articles')->with('success','Post removed!!');
+        $article = Article::find($id);
+        if(auth::user()->id !== $article->user_id){
+            return redirect('/')->with('error','Error!!The permission is denied.');
+        }
+        $article->delete();
+        return redirect('/articles')->with('success','Post removed!!');
     }
 }
