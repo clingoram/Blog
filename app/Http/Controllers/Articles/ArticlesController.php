@@ -39,12 +39,16 @@ class ArticlesController extends Controller
     {
         // $articles = Article::all();
 
-        // get login member id
-        $login_user_data = Auth::user()->id;
-
-        $articles = DB::table('articles')->where('user_id','=',$login_user_data)->orderBy('id','desc')->get();
-
-        return view('articles.index')->with('articles',$articles);
+        if(isset(Auth::user()->id)){
+            // get login member id
+            $login_user_data = Auth::user()->id;
+    
+            $articles = DB::table('articles')->where('user_id','=',$login_user_data)->orderBy('id','desc')->get();
+    
+            return view('articles.index')->with('articles',$articles);
+        }else{
+            return redirect('/')->with('error','Please login.');
+        }
 
     }
 
@@ -71,13 +75,24 @@ class ArticlesController extends Controller
 
         $this->validate($request,[
             'title'=> 'required',
-            'content'=>'required'
+            'content'=>'required',
+            'images' => 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:1024'
         ]);
- 
+
         $article = new Article;
+        if($request->file('images')){
+
+            $filename_to_store = time().'.'.$request->file('images')->getClientOriginalName();
+            $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
+
+        }/*else{
+            $filename_to_store = 'no_image.jpeg';
+        }*/
+ 
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->user_id = $login_user_data->id;
+        $article->images = '/storage/'.$filename_to_store;
         // $a = DB::table('articles')->toSql();
 
         $article->save();
@@ -118,7 +133,7 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = DB::table('articles')->find($id);
-        // 改url id
+        // 改url article id
         if(auth::user()->id !== $article->user_id){
             return redirect('/')->with('error','Error!!The permission is denied.');
         }
@@ -139,16 +154,32 @@ class ArticlesController extends Controller
 
         $this->validate($request,[
             'title'=> 'required',
-            'content'=>'required'
+            'content'=>'required',
+            'images' => 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+             
+        $article = new Article;
+        if($request->file('images')){
+            // $file_exist = $request->file('images')->getClientOriginalName();
+            // // get file name
+            // $filename = pathinfo($file_exist,PATHINFO_FILE);
+            // $extension = $request->file('images')->extension();
+            // $filename_to_store = $filename .'_'.time().'.'.$extension;
+            // // upload image
+            // $path = $request->file('images')->storeAs('public/images',$filename_to_store);
+
+            $filename_to_store = time().'.'.$request->file('images')->getClientOriginalName();
+            $file_path = $request->file('images')->storeAs('uploads', $filename_to_store, 'public');
+
+        }/*else{
+            $filename_to_store = 'no_image.jpeg';
+        }*/
  
-        $article = Article::find($id);
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->user_id = $login_user_data->id;
-        $article->updated_at = date("Y-m-d h:i:s a", time());
+        $article->images = '/storage/'.$filename_to_store;
         // $a = DB::table('articles')->toSql();
-
         $article->save();
 
         return redirect('/articles')->with('success','Post updated.');
