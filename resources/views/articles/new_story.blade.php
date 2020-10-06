@@ -4,7 +4,7 @@
 @section('content')
     <h1>{{ $title }}</h1>
     
-    {!! Form::open(['action' => 'ArticlesController@store','method' => 'POST','enctype'=>'multipart/data']) !!}
+    {!! Form::open(['action' => 'ArticlesController@store','method' => 'POST','enctype'=>'multipart/form-data']) !!}
         <div class="form-group">
            {{ Form::label('title','Title') }}
            {{ Form::text('title','',['class' => 'form-control','placeholder' => 'Title Here']) }}
@@ -13,7 +13,7 @@
         {{ Form::checkbox('status','1', true) }}
 
         <div class="form-group">
-            {{ Form::file('image') }}
+            {{ Form::file('images') }}
         </div>
 
         <div class="form-group">

@@ -11,6 +11,11 @@
         </div>
 
         {{ Form::checkbox('status', '1') }}
+
+        <div class="form-group">
+            {{ Form::file('images') }}
+        </div>
+
         <div class="form-group">
             {{ Form::label('content','Content') }}
             {{ Form::textarea('content',$articles->content,['class'=>'form-control','row'=>3]) }}
