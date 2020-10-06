@@ -82,17 +82,17 @@ class ArticlesController extends Controller
         $article = new Article;
         if($request->file('images')){
 
-            $filename_to_store = time().'.'.$request->file('images')->getClientOriginalName();
+            $filename_to_store = time().'.'.$request->file('images')->extension();
             $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
 
-        }/*else{
+        }else{
             $filename_to_store = 'no_image.jpeg';
-        }*/
+        }
  
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->user_id = $login_user_data->id;
-        $article->images = '/storage/'.$filename_to_store;
+        $article->images = $filename_to_store;//'/storage/'.$filename_to_store;
         // $a = DB::table('articles')->toSql();
 
         $article->save();
@@ -134,7 +134,7 @@ class ArticlesController extends Controller
     {
         $article = DB::table('articles')->find($id);
         // 改url article id
-        if(auth::user()->id !== $article->user_id){
+        if(!isset($article) OR auth::user()->id !== $article->user_id){
             return redirect('/')->with('error','Error!!The permission is denied.');
         }
         return view('articles.edit')->with('articles',$article);
@@ -168,17 +168,17 @@ class ArticlesController extends Controller
             // // upload image
             // $path = $request->file('images')->storeAs('public/images',$filename_to_store);
 
-            $filename_to_store = time().'.'.$request->file('images')->getClientOriginalName();
-            $file_path = $request->file('images')->storeAs('uploads', $filename_to_store, 'public');
+            $filename_to_store = time().'.'.$request->file('images')->extension();//->getClientOriginalName();
+            $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
 
-        }/*else{
+        }else{
             $filename_to_store = 'no_image.jpeg';
-        }*/
+        }
  
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->user_id = $login_user_data->id;
-        $article->images = '/storage/'.$filename_to_store;
+        $article->images = $filename_to_store;
         // $a = DB::table('articles')->toSql();
         $article->save();
 

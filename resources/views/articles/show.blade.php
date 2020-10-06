@@ -24,6 +24,9 @@
                 </div>
                 <div class="card-body">
                 <h3 class="card-title">{{ $articles->title }}</h3>
+                <div class="col-8">
+                    <img style="width:100px" src="{{url('/stroage/images/'.$articles->images) }}">
+                </div>
                 <p class="card-text">{{ $articles->content }}</p>
                 </div>
             </div>
