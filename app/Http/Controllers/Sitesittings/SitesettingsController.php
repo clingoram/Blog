@@ -66,10 +66,6 @@ class SitesettingsController extends Controller
         // $management_status = DB::table('sitesettings')->where('member_id','=',$login_member_data->id)->value('site_status');
 
         // SELECT users.id,users.name,users.account,users.status,sitesettings.member_id,sitesettings.site_status 
-        // FROM users,sitesettings 
-        // WHERE sitesettings.member_id = users.id
-
-        // SELECT users.id,users.name,users.account,users.status,sitesettings.member_id,sitesettings.site_status 
         // FROM users 
         // INNER JOIN sitesettings 
         // ON sitesettings.member_id = users.id
