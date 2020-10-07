@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SitesettingsController extends Controller
 {
@@ -57,9 +58,27 @@ class SitesettingsController extends Controller
      */
     public function show($id)
     {
-        // $article = Article::find($id);
-        $management = DB::table('sitesettings')->find($id);
-        return view('sitesettings.settings')->with('managements',$management);
+        // get login user's data
+        $login_member_data = Auth::user();
+        $member_account = $login_member_data->account;
+        
+        // site status(on/off)
+        // $management_status = DB::table('sitesettings')->where('member_id','=',$login_member_data->id)->value('site_status');
+
+        // SELECT users.id,users.name,users.account,users.status,sitesettings.member_id,sitesettings.site_status 
+        // FROM users,sitesettings 
+        // WHERE sitesettings.member_id = users.id
+
+        // SELECT users.id,users.name,users.account,users.status,sitesettings.member_id,sitesettings.site_status 
+        // FROM users 
+        // INNER JOIN sitesettings 
+        // ON sitesettings.member_id = users.id
+        $data = DB::table('users')
+            ->join('sitesettings','users.id','=','sitesettings.member_id');
+
+        // return view('sitesettings.settings')->with('managements',$management);
+        return view('sitesettings.settings')->with('managements',$data);
+
     }
 
     /**

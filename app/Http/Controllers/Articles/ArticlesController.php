@@ -160,16 +160,16 @@ class ArticlesController extends Controller
              
         $article = new Article;
         if($request->file('images')){
-            // $file_exist = $request->file('images')->getClientOriginalName();
-            // // get file name
-            // $filename = pathinfo($file_exist,PATHINFO_FILE);
-            // $extension = $request->file('images')->extension();
-            // $filename_to_store = $filename .'_'.time().'.'.$extension;
-            // // upload image
-            // $path = $request->file('images')->storeAs('public/images',$filename_to_store);
+            $file_exist = $request->file('images')->getClientOriginalName();
+            // get file name
+            $filename = pathinfo($file_exist,PATHINFO_FILE);
+            $extension = $request->file('images')->extension();
+            $filename_to_store = $filename .'_'.time().'.'.$extension;
+            // upload image
+            $path = $request->file('images')->storeAs('public/images',$filename_to_store);
 
-            $filename_to_store = time().'.'.$request->file('images')->extension();//->getClientOriginalName();
-            $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
+            // $filename_to_store = time().'.'.$request->file('images')->extension();//->getClientOriginalName();
+            // $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
 
         }else{
             $filename_to_store = 'no_image.jpeg';
