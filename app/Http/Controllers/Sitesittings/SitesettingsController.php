@@ -75,8 +75,6 @@ class SitesettingsController extends Controller
         // ON sitesettings.member_id = users.id
         $data = DB::table('users')
             ->join('sitesettings','users.id','=','sitesettings.member_id');
-
-        // return view('sitesettings.settings')->with('managements',$management);
         return view('sitesettings.settings')->with('managements',$data);
 
     }
