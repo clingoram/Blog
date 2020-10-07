@@ -4,7 +4,7 @@
 @section('content')
     <h1>Edit story</h1>
     
-    {!! Form::open(['action' => ['ArticlesController@update',$articles->id],'method'=>'POST']) !!}
+    {!! Form::open(['action' => ['ArticlesController@update',$articles->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
         <div class="form-group">
            {{ Form::label('title','Title') }}
            {{ Form::text('title',$articles->title,['class' => 'form-control','placeholder' => 'Title Here']) }}
