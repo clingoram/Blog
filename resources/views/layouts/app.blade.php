@@ -45,11 +45,10 @@
                         @guest
                             <li class="nav-item">
                                 {{-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> --}}
-                                <a class="nav-link" href="/sign-in">Login</a>
+                                <a class="nav-link" href="/sign">Login</a>
 
                             </li>
                             {{-- @if (Route::has('register')) --}}
-                            @if (Route::has('sign-up'))
                             
                                 <li class="nav-item">
                                     {{-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> --}}
@@ -57,7 +56,7 @@
 
                                 </li>
 
-                            @endif
+                            {{-- @endif --}}
                             @else
                             
                             <ul class="nav nav-pills">

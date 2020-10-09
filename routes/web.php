@@ -4,6 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // pages
 Route::get('/','PagesController@index');
 
-Route::group(['prefix' => 'user', 'namespace' => 'Users'], function () {
+Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
     Route::post('/sign-in', 'UsersController@signIn');
     Route::post('/sign-up', 'UsersController@signUp');
     Route::get('/sign-out', 'UsersController@signOut');

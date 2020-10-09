@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -20,7 +21,7 @@ class UsersController extends Controller
 
     public function signIn()
     {
-        return 'he';
+        return view('auth.login');
     }
 
     public function singUp()
