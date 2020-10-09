@@ -10,7 +10,6 @@ use App\Article;
 // use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Log;
 
 // 文章
 // 打上:php artisan make:controller XxxController --resource
