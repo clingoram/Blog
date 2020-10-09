@@ -4,6 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,31 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
-Auth::routes();
-
-Route::get('/','PagesController@index');
-// Route::get('/{name?}','PagesController@index');
-
-
-// Route::get('/{name?}',function($name = null){
-//     return redirect()->action('PagesController@index');
-// });
-
+// Auth::routes();
+// home
 Route::get('/home', 'HomeController@index')->name('home');
+// pages
+Route::get('/','PagesController@index');
+
+Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
+    Route::post('/sign-in', 'UsersController@signIn');
+    Route::post('/sign-up', 'UsersController@signUp');
+    Route::get('/sign-out', 'UsersController@signOut');
+});
+
+// $api->group(['middleware' => 'api.auth', 'prefix' => 'user', 'namespace' => 'User'], function ($api) {
+//     $api->post('/sign-up', 'UserController@signUp');
+//     $api->get('/sign-out', 'UserController@signOut');
+//     $api->post('/refresh-token', 'UserController@refreshToken');
+// });
 
 // Route::get('/about','PagesController@about');
 
-// db,articlecontroller
+// articles
 Route::resource('articles','ArticlesController');
-
+// sitesettings
 Route::resource('sitesettings','SitesettingsController');
-
-// Route::group(['prefix'=>'post'], function(){
-//     Route::get('/', 'PagesController@index');
-// });
