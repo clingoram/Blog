@@ -176,6 +176,7 @@ class ArticlesController extends Controller
  
         $article->title = $request->input('title');
         $article->content = $request->input('content');
+        $article->updated_at = date("Y-m-d h:i:s a", time());
         $article->user_id = $login_user_data->id;
         $article->images = $filename_to_store;
         // $a = DB::table('articles')->toSql();

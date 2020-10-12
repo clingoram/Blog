@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
@@ -36,33 +37,46 @@ class UsersController extends Controller
             // return response()->json(['message' => $validator->errors(), 'status_code' => 400], 400);
         }
 
+        // validation,success = true;fail = false
         $token = Auth::attempt($credentials);
 
         if (!$token) {
             return $this->response->error('登入失敗', 401);
             // return response()->json(['message' => '登入失敗', 'status_code' => 500], 500);
         }
+        return view('home');
         // dd($token);
     }
 
     // user logout
-    public function userLogout(Request $request)
+    public function userLogout()
     {
+        // $insert_data = Auth::user();
+        // if(isset($insert_data)){
+        //     $data->member_id = $insert_data->id;
+        //     // $data->note = $insert_data->name.'已登出';
+        //     // $data->updated = date("Y-m-d h:i:s a", time());
+        //     // $data->save();
+        //     dd($data);
+        // }
+
         Auth::logout(true);
-        return response()->json(['message' => '已登出'], 200);
+        
+        $intro = 'Laravel Blog';
+        return view('pages.index')->with('title',$intro);//response()->json(['message' => '已登出'], 200);
     }
 
     // insert datas into two tables:
     // table 1: users
     // table 2: sitesettings
-    public function userRegister()
+    public function userRegister(Request $request)
     {
-        // $credentials = $request->only('account','email', 'password');
+        $credentials = $request->all();
 
-        // $rules = [
-        //     'account' => 'required|min:2|max:50',
-        //     'email' => 'required|max:255|email|string|unique:users',
-        //     'password' => 'required|min:8|string|confirmed'
-        // ];
+        $rules = [
+            'account' => 'required|min:2|max:50',
+            'email' => 'required|max:255|email|string|unique:users',
+            'password' => 'required|min:8|string|confirmed'
+        ];
     }
 }

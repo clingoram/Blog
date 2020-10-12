@@ -92,7 +92,7 @@
                                         {{ __('Logout') }}
                                     </a> --}}
 
-                                    <a class="dropdown-item" href="/logout"
+                                <a class="dropdown-item" href="/logout"
                                     onclick="event.preventDefault();
                                                   document.getElementById('logout-form').submit();">
                                      Logout
