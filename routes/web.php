@@ -29,7 +29,7 @@ Route::group(['prefix' => 'login'], function () {
 });
 // logout
 Route::group(['prefix'=>'logout'],function(){
-    Route::get('/', 'UsersController@userLogout');
+    Route::post('/', 'UsersController@userLogout');
 });
 // register
 Route::group(['prefix'=>'register'],function(){
