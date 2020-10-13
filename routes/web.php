@@ -33,7 +33,8 @@ Route::group(['prefix'=>'logout'],function(){
 });
 // register
 Route::group(['prefix'=>'register'],function(){
-    Route::post('/', 'UsersController@userRegister');
+    Route::get('/', 'UsersController@showRegister');
+    Route::get('/', 'UsersController@userRegister');
 });
 
 // $api->group(['middleware' => 'api.auth', 'prefix' => 'user', 'namespace' => 'User'], function ($api) {

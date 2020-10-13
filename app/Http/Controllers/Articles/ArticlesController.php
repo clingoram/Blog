@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 // get table
 use App\Article;
+use App\Userlog;
+
+use DateTime;
+
 // use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +100,15 @@ class ArticlesController extends Controller
 
         $article->save();
 
+        $now = new DateTime();
+        // insert data into userlogs
+        $memberlog = new Userlog;
+        $memberlog->member_id = $login_user_data->id;
+        $memberlog->note = $login_user_data->name.'已新增文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
+
+
         return redirect('/articles')->with('success','New post');
 
     }
@@ -173,14 +186,24 @@ class ArticlesController extends Controller
         }else{
             $filename_to_store = 'no_image.jpeg';
         }
- 
+        
+        $now = new DateTime();
+
+        // $date_time = date("Y-m-d h:i:s a", time());
         $article->title = $request->input('title');
         $article->content = $request->input('content');
-        $article->updated_at = date("Y-m-d h:i:s a", time());
+        $article->updated_at = $now;
         $article->user_id = $login_user_data->id;
         $article->images = $filename_to_store;
         // $a = DB::table('articles')->toSql();
         $article->save();
+
+        // insert data into userlogs
+        $memberlog = new Userlog;
+        $memberlog->member_id = $login_user_data->id;
+        $memberlog->note =  $login_user_data->name.'已修改文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
 
         return redirect('/articles')->with('success','Post updated.');
     }
@@ -198,6 +221,16 @@ class ArticlesController extends Controller
             return redirect('/')->with('error','Error!!The permission is denied.');
         }
         $article->delete();
+
+        // insert data into userlogs
+        $insert_data = Auth::user();
+        $now = new DateTime();
+        $memberlog = new Userlog;
+        $memberlog->member_id = $insert_data->id;
+        $memberlog->note = $insert_data->name.'已刪除文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
+
         return redirect('/articles')->with('success','Post removed!!');
     }
 }

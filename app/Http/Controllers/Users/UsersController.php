@@ -3,11 +3,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+
+use App\User;
+use App\Userlog;
+
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
@@ -22,7 +27,8 @@ class UsersController extends Controller
     // check user's mail,password
     public function userLogin(Request $request)
     {
-        // inputs datas that user typein
+        
+        // inputs datas that user type in
         $credentials = $request->only('email', 'password');
 
         $rules = [
@@ -44,6 +50,18 @@ class UsersController extends Controller
             return $this->response->error('登入失敗', 401);
             // return response()->json(['message' => '登入失敗', 'status_code' => 500], 500);
         }
+        if(Auth::check()){
+            
+            $insert_data = Auth::user();
+            // insert data into userlogs
+            $memberlog = new Userlog;
+            $memberlog->member_id = $insert_data->id;
+            $memberlog->note = $insert_data->name.'已登入';
+            $memberlog->updated_at = date("Y-m-d h:i:s a", time());
+            $memberlog->save();
+        }
+
+
         return view('home');
         // dd($token);
     }
@@ -51,32 +69,54 @@ class UsersController extends Controller
     // user logout
     public function userLogout()
     {
-        // $insert_data = Auth::user();
-        // if(isset($insert_data)){
-        //     $data->member_id = $insert_data->id;
-        //     // $data->note = $insert_data->name.'已登出';
-        //     // $data->updated = date("Y-m-d h:i:s a", time());
-        //     // $data->save();
-        //     dd($data);
-        // }
+        if(Auth::check()){
+            $insert_data = Auth::user();
+            // insert data into userlogs
+            $memberlog = new Userlog;
+            $memberlog->member_id = $insert_data->id;
+            $memberlog->note = $insert_data->name.'已登出';
+            $memberlog->updated_at = date("Y-m-d h:i:s a", time());
+            $memberlog->save();
 
-        Auth::logout(true);
-        
-        $intro = 'Laravel Blog';
-        return view('pages.index')->with('title',$intro);//response()->json(['message' => '已登出'], 200);
+            Auth::logout(true);
+        }else{
+            return response()->json(['message' => '錯誤', 'status_code' => 500], 500);
+        }
+
+        return view('pages.index');//response()->json(['message' => '已登出'], 200);
     }
 
-    // insert datas into two tables:
+    // direct to register page
+    public function showRegister()
+    {
+        return view('users.register');
+    }
+    // When user register,insert datas into two tables:
     // table 1: users
     // table 2: sitesettings
     public function userRegister(Request $request)
     {
-        $credentials = $request->all();
+        $datas = $request->all();
 
         $rules = [
-            'account' => 'required|min:2|max:50',
+            'account' => 'required|min:2|max:50|unique:users',
+            'name' => 'required|min:10|max:50|string',
             'email' => 'required|max:255|email|string|unique:users',
             'password' => 'required|min:8|string|confirmed'
         ];
+        $validator = Validator::make($datas, $rules);
+
+        if ($validator->fails()) {
+            $this->response->errorBadRequest($validator->errors());
+            // return response()->json(['message' => $validator->errors(), 'status_code' => 400], 400);
+        }
+
+        $find_user = DB::table('users')->where('account', '=',$datas['account']);
+        dd($find_user);
+        // if ($find_user) {
+        //     return $this->response->error('帳號重複', 409);
+        // }
+
+
     }
 }
