@@ -13,6 +13,7 @@ class Article extends Model
     // timestamps
     public $timestamps = false;
 
+    // 一對一
     public function user()
     {
         return $this->belongsTo('App\User');

@@ -44,19 +44,19 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                {{-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> --}}
-                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                {{-- <a class="nav-link" href="/login">Login</a> --}}
 
                             </li>
-                            {{-- @if (Route::has('register')) --}}
+                            @if (Route::has('register'))
                             
                                 <li class="nav-item">
-                                    {{-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> --}}
-                                    <a class="nav-link" href="/register">Register</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    {{-- <a class="nav-link" href="/register">Register</a> --}}
 
                                 </li>
 
-                            {{-- @endif --}}
+                            @endif
                             @else
                             
                             <ul class="nav nav-pills">
@@ -68,15 +68,10 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/articles/new_story">Write a story</a>
                                         <a class="dropdown-item" href="/articles">Stories</a>
-                                        {{-- <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a> --}}
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/sitesettings/settings">Settings</a>
-                                </li>
                                 {{-- <li class="nav-item">
-                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    <a class="nav-link" href="/sitesettings/settings">Settings</a>
                                 </li> --}}
                             </ul>
 
@@ -86,21 +81,21 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    {{-- <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a> --}}
+                                    </a>
 
-                                <a class="dropdown-item" href="/logout"
+                                {{-- <a class="dropdown-item" href="/logout"
                                     onclick="event.preventDefault();
                                                   document.getElementById('logout-form').submit();">
                                      Logout
-                                    </a>
+                                    </a> --}}
 
 
-                                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> --}}
-                                    <form id="logout-form" action="/logout" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    {{-- <form id="logout-form" action="/logout" method="POST" class="d-none"> --}}
                                     
                                         @csrf
                                     </form>
@@ -116,9 +111,9 @@
             @include('inc.messages')
             @yield('content')    
         </main>
-        <main class="py-4 container">
+        {{-- <main class="py-4 container">
             @include('layouts.footer')
-        </main>
+        </main> --}}
 
     </div>
 </body>

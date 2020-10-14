@@ -10,10 +10,11 @@
            {{ Form::text('title',$articles->title,['class' => 'form-control','placeholder' => 'Title Here']) }}
         </div>
 
-        {{ Form::checkbox('status', '1') }}
+        {{-- {{ Form::checkbox('status', '1') }} --}}
 
         <div class="form-group">
             {{ Form::file('images') }}
+            <img style="width:200px" src="/storage/images/{{$articles->images}}">
         </div>
 
         <div class="form-group">
