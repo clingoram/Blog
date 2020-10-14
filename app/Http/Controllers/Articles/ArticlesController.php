@@ -1,20 +1,18 @@
 <?php
 
-// Controller從Model拿資料。Model是PHP的物件，負責處理跟資料庫的互動跟資料庫的互動(拿取資料)
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// get table
+// get model
 use App\Article;
+use App\Userlog;
+
+use DateTime;
+
 // use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
-// 文章
-// 打上:php artisan make:controller XxxController --resource
-// 就會出現內建的index、create、store....
-
 
 class ArticlesController extends Controller
 {
@@ -36,8 +34,6 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        // $articles = Article::all();
-
         if(isset(Auth::user()->id)){
             // get login member id
             $login_user_data = Auth::user()->id;
@@ -69,6 +65,8 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {   
+        $now = new DateTime();
+
         // to get user data
         $login_user_data = Auth::user();
 
@@ -81,20 +79,32 @@ class ArticlesController extends Controller
         $article = new Article;
         if($request->file('images')){
 
-            $filename_to_store = time().'.'.$request->file('images')->extension();
-            $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
+            // 請求取得上傳圖片的原始名稱
+            $filename_to_store = $request->file('images')->getClientOriginalName();
+            $extension = $request->file('images')->getClientOriginalExtension();
+            $file_name = $filename_to_store;//.'_'.time().'_'.$extension;
+            $file_path = $request->file('images')->storeAs('public/images',$file_name);
 
         }else{
-            $filename_to_store = 'no_image.jpeg';
+            $file_name = 'no_image.jpeg';
         }
  
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->user_id = $login_user_data->id;
-        $article->images = $filename_to_store;//'/storage/'.$filename_to_store;
-        // $a = DB::table('articles')->toSql();
+        $article->created_at = $now;
+        $article->images = $file_name;
 
         $article->save();
+
+        $now = new DateTime();
+        // insert data into userlogs
+        $memberlog = new Userlog;
+        $memberlog->member_id = $login_user_data->id;
+        $memberlog->note = $login_user_data->name.'已新增文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
+
 
         return redirect('/articles')->with('success','New post');
 
@@ -109,9 +119,6 @@ class ArticlesController extends Controller
     public function show($id)
     {
    
-        // $article = Article::find($id);
-        // $article = DB::table('articles')->find($id);
-        // return view('articles.show')->with('article',$article);
         $articles = DB::table('articles')->find($id);
         if($articles == ''){
             // 新增
@@ -157,30 +164,36 @@ class ArticlesController extends Controller
             'images' => 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
              
-        $article = new Article;
-        if($request->file('images')){
-            $file_exist = $request->file('images')->getClientOriginalName();
-            // get file name
-            $filename = pathinfo($file_exist,PATHINFO_FILE);
-            $extension = $request->file('images')->extension();
-            $filename_to_store = $filename .'_'.time().'.'.$extension;
-            // upload image
-            $path = $request->file('images')->storeAs('public/images',$filename_to_store);
+        $article = Article::find($id);
+        if($request->file('images') != null){
 
-            // $filename_to_store = time().'.'.$request->file('images')->extension();//->getClientOriginalName();
-            // $file_path = $request->file('images')->storeAs('public/images',$filename_to_store);
+            // 請求取得上傳圖片的原始名稱
+            $filename_to_store = $request->file('images')->getClientOriginalName();
+            $extension = $request->file('images')->getClientOriginalExtension();
+            $file_name = $filename_to_store;//.'_'.time().'_'.$extension;
+            $file_path = $request->file('images')->storeAs('public/images',$file_name);
 
         }else{
-            $filename_to_store = 'no_image.jpeg';
+            $file_name = 'no_image.jpeg';
         }
- 
+        
+        $now = new DateTime();
+
+        // $date_time = date("Y-m-d h:i:s a", time());
         $article->title = $request->input('title');
         $article->content = $request->input('content');
-        $article->updated_at = date("Y-m-d h:i:s a", time());
+        $article->updated_at = $now;
         $article->user_id = $login_user_data->id;
-        $article->images = $filename_to_store;
+        $article->images = $file_name;
         // $a = DB::table('articles')->toSql();
         $article->save();
+
+        // insert data into userlogs
+        $memberlog = new Userlog;
+        $memberlog->member_id = $login_user_data->id;
+        $memberlog->note =  $login_user_data->name.'已修改文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
 
         return redirect('/articles')->with('success','Post updated.');
     }
@@ -198,6 +211,16 @@ class ArticlesController extends Controller
             return redirect('/')->with('error','Error!!The permission is denied.');
         }
         $article->delete();
+
+        // insert data into userlogs
+        $insert_data = Auth::user();
+        $now = new DateTime();
+        $memberlog = new Userlog;
+        $memberlog->member_id = $insert_data->id;
+        $memberlog->note = $insert_data->name.'已刪除文章';
+        $memberlog->updated_at = $now;
+        $memberlog->save();
+
         return redirect('/articles')->with('success','Post removed!!');
     }
 }

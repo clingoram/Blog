@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 一對多，一個user會有很多文章
     public function articles(){
         return $this->hasMany('App\Article');
     }

@@ -10,7 +10,7 @@
            {{ Form::text('title','',['class' => 'form-control','placeholder' => 'Title Here']) }}
         </div>
 
-        {{ Form::checkbox('status','1', true) }}
+        {{-- {{ Form::checkbox('status','1', true) }} --}}
 
         <div class="form-group">
             {{ Form::file('images') }}

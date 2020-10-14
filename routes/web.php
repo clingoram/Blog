@@ -16,30 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth::routes();
+Auth::routes();
 
 // home
 Route::get('/home', 'HomeController@index')->name('home');
 // pages
 Route::get('/','PagesController@index');
-// login
-Route::group(['prefix' => 'login'], function () {
-    Route::get('/', 'UsersController@showLogin');
-    Route::post('/', 'UsersController@userLogin');
-});
-// logout
-Route::group(['prefix'=>'logout'],function(){
-    Route::post('/', 'UsersController@userLogout');
-});
-// register
-Route::group(['prefix'=>'register'],function(){
-    Route::post('/', 'UsersController@userRegister');
-});
 
-// $api->group(['middleware' => 'api.auth', 'prefix' => 'user', 'namespace' => 'User'], function ($api) {
-//     $api->post('/sign-up', 'UserController@signUp');
-//     $api->get('/sign-out', 'UserController@signOut');
-//     $api->post('/refresh-token', 'UserController@refreshToken');
+// // login
+// Route::group(['prefix' => 'login'], function () {
+//     Route::get('/', 'UsersController@showLogin');
+//     Route::post('/', 'UsersController@userLogin');
+// });
+// // logout
+// Route::group(['prefix'=>'logout'],function(){
+//     Route::post('/', 'UsersController@userLogout');
+// });
+// // register
+// Route::group(['prefix'=>'register'],function(){
+//     Route::get('/', 'UsersController@showRegister');
+//     Route::post('/', 'UsersController@userRegister');
 // });
 
 // Route::get('/about','PagesController@about');
