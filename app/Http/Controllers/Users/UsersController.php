@@ -114,7 +114,6 @@ class UsersController extends Controller
         }
 
         $find_user = DB::table('users')->where('account', $datas['name'])->exists();
-        // dd($find_user);
 
         if ($find_user != false) {
             return response()->json(['message'=>'帳號重複','status_code'=>409],409);
