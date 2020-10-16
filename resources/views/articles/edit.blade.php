@@ -14,7 +14,9 @@
 
         <div class="form-group">
             {{ Form::file('images') }}
-            <img style="width:200px" src="/storage/images/{{$articles->images}}">
+            @if(isset($articles->images) AND $articles->images != 'no_image.jpeg')
+                <img style="width:200px" src="/storage/images/{{$articles->images}}">
+            @endif
         </div>
 
         <div class="form-group">

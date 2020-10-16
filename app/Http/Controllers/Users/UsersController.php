@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// models
 use App\User;
 use App\Userlog;
 use App\Sitesetting;
+
 use DateTime;
-// use App\Http\Models\User;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,6 @@ class UsersController extends Controller
     // check user's mail,password
     public function userLogin(Request $request)
     {
-        
         // inputs datas that user type in
         $credentials = $request->only('email', 'password');
 
@@ -53,14 +53,13 @@ class UsersController extends Controller
             // return response()->json(['message' => '登入失敗', 'status_code' => 500], 500);
         }
         if(Auth::check()){
-            
             $insert_data = Auth::user();
             // insert data into userlogs
-            $memberlog = new Userlog;
-            $memberlog->member_id = $insert_data->id;
-            $memberlog->note = $insert_data->name.'已登入';
-            $memberlog->updated_at = date("Y-m-d h:i:s a", time());
-            $memberlog->save();
+            $insert_userlog = Userlog::create([
+                'member_id' => $insert_data->id,
+                'note' => $insert_data->name.'已登入',
+                'updated_at' => date("Y-m-d h:i:s a", time()),
+            ]);
         }
 
         return view('home');
@@ -72,11 +71,11 @@ class UsersController extends Controller
         if(Auth::check()){
             $insert_data = Auth::user();
             // insert data into userlogs
-            $memberlog = new Userlog;
-            $memberlog->member_id = $insert_data->id;
-            $memberlog->note = $insert_data->name.'已登出';
-            $memberlog->updated_at = date("Y-m-d h:i:s a", time());
-            $memberlog->save();
+            $insert_userlog = Userlog::create([
+                'member_id' => $insert_data->id,
+                'note' => $insert_data->name.'已登出',
+                'updated_at' => date("Y-m-d h:i:s a", time()),
+            ]);
 
             Auth::logout(true);
         }else{
@@ -113,7 +112,8 @@ class UsersController extends Controller
             return response()->json(['message' => $validator->errors(), 'status_code' => 400], 400);
         }
 
-        $find_user = DB::table('users')->where('account', $datas['name'])->exists();
+        // $find_user = DB::table('users')->where('account', $datas['name'])->exists();
+        $find_user = User::where('account', $datas['name'])->exists();
 
         if ($find_user != false) {
             return response()->json(['message'=>'帳號重複','status_code'=>409],409);
@@ -121,7 +121,8 @@ class UsersController extends Controller
         }
         $now = new DateTime();
 
-        $user = DB::table('users')->insert([
+        // Insert data when user register success
+        $insert_user = User::create([
             'account' => $datas['account'],
             'name' => $datas['name'],
             'email' => $datas['email'],
@@ -133,21 +134,23 @@ class UsersController extends Controller
             'created_at' => $now
         ]);
         
-        $find_max_user_id = DB::table('users')->find(DB::table('users')->max('id'));
+        $find_max_user_id = User::find(DB::table('users')->max('id'));
         $increase = $find_max_user_id+1;
 
-        $insert_sitesetting = DB::table('sitesettings')->insert([
+        // Insert sitesetting when user register
+        $insert_sitesetting = Sitesetting::create([
             'member_id' => $increase,
             'created_at' => $now,
             'updated_at' => $now,
             'site_status' => 'on'
         ]);
-
-        $memberlog = new Userlog;
-        $memberlog->member_id = $insert_sitesetting['member_id'];
-        $memberlog->note = $datas['name'].'註冊';
-        $memberlog->updated_at = date("Y-m-d h:i:s a", time());
-        $memberlog->save();
+        
+        // Insert user log
+        $insert_userlog = Userlog::create([
+            'member_id' => $insert_sitesetting['member_id'],
+            'note' => $datas['name'].'註冊',
+            'updated_at' => date("Y-m-d h:i:s a", time())
+        ]);
 
         return view('home');
     }
