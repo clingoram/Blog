@@ -52,6 +52,7 @@ class UsersController extends Controller
             return $this->response->error('登入失敗', 401);
             // return response()->json(['message' => '登入失敗', 'status_code' => 500], 500);
         }
+
         if(Auth::check()){
             $insert_data = Auth::user();
             // insert data into userlogs
@@ -120,6 +121,25 @@ class UsersController extends Controller
             // return $this->response->error('帳號重複', 409);
         }
         $now = new DateTime();
+                
+        // find max id from table users
+        $find_max_user_id = User::max('id');
+        // $find_max_user_id = User::count('id');
+         // var_dump($insert_user);die();
+
+        if($find_max_user_id >= 1){
+            $increase = intval($find_max_user_id)+1;
+        }else{
+            $increase = 1;
+        }
+        // var_dump($increase);die();
+         // Insert sitesetting when user register
+        $insert_sitesetting = Sitesetting::create([
+             'member_id' => $increase,
+             'created_at' => $now,
+             'updated_at' => $now,
+             'site_status' => 'on'
+        ]);
 
         // Insert data when user register success
         $insert_user = User::create([
@@ -133,18 +153,7 @@ class UsersController extends Controller
             'updated_at' => $now,
             'created_at' => $now
         ]);
-        
-        $find_max_user_id = User::find(DB::table('users')->max('id'));
-        $increase = $find_max_user_id+1;
 
-        // Insert sitesetting when user register
-        $insert_sitesetting = Sitesetting::create([
-            'member_id' => $increase,
-            'created_at' => $now,
-            'updated_at' => $now,
-            'site_status' => 'on'
-        ]);
-        
         // Insert user log
         $insert_userlog = Userlog::create([
             'member_id' => $insert_sitesetting['member_id'],

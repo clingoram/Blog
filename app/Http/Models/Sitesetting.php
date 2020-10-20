@@ -10,6 +10,6 @@ class Sitesetting extends Model
     protected $primaryKey = 'id';   // 主鍵
     
     protected $fillable = [
-        'account','site_status'
+        'account','site_status','member_id'
     ];
 }
