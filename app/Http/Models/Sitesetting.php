@@ -7,9 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Sitesetting extends Model
 {
     protected $table = 'sitesettings'; // 資料表名稱
-    protected $primaryKey = 'id';   // 主鍵
-    
+
+    public $primaryKey = 'id';   // 主鍵
+
+    // public $incrementing = false;
+
     protected $fillable = [
-        'account','site_status','member_id'
+        'site_status','member_id'
     ];
+
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 }
