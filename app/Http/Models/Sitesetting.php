@@ -16,8 +16,8 @@ class Sitesetting extends Model
         'site_status','member_id'
     ];
 
-    // public function user()
-    // {
-    //     return $this->belongsTo('App\User');
-    // }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
