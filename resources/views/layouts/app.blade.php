@@ -70,9 +70,9 @@
                                         <a class="dropdown-item" href="/articles">Stories</a>
                                     </div>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="/sitesettings/settings">Settings</a>
-                                </li>
+                                </li> --}}
                             </ul>
 
                             <li class="nav-item dropdown">
@@ -96,7 +96,6 @@
 
                                     {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> --}}
                                     <form id="logout-form" action="/logout" method="POST" class="d-none">
-                                    
                                         @csrf
                                     </form>
                                 </div>

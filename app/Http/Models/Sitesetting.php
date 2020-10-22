@@ -10,8 +10,6 @@ class Sitesetting extends Model
 
     public $primaryKey = 'id';   // 主鍵
 
-    // public $incrementing = false;
-
     protected $fillable = [
         'site_status','member_id'
     ];

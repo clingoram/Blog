@@ -43,4 +43,4 @@ Route::group(['prefix'=>'register'],function(){
 // articles
 Route::resource('articles','ArticlesController');
 // sitesettings
-Route::resource('sitesettings','SitesettingsController');
+// Route::resource('sitesettings','SitesettingsController');

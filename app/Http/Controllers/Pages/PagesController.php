@@ -11,8 +11,14 @@ class PagesController extends Controller
 {
     // 首頁
     public function index(){
-
+    
+        // if member login
         $member_login = Auth::user();
+        // if(Auth::check()){
+        //     $intro = 'Welcome Back,'.$member_login->name.'.';
+        // }else{
+        //     $intro = 'Laravel Blog';
+        // }
         if($member_login == ''){
             $intro = 'Laravel Blog';
         }else{
@@ -21,24 +27,9 @@ class PagesController extends Controller
         return view('pages.index')->with('title',$intro);
     }
 
-    public function about(){
-        $title = 'About this blog';
-        return view('pages.about')->with('title',$title);
-    }
-
-    // 新增文章
-    // public function new_story(){
-    //     $title ='New';
-    //     // folder:articles
-    //     return view('articles.new_story')->with('title',$title);
+    // public function about(){
+    //     $title = 'About this blog';
+    //     return view('pages.about')->with('title',$title);
     // }
 
-    // 設定網站(名稱)
-    // public function settings(){
-    //     $data = array(
-    //         'title'=> 'Settings',
-    //         'service'=> ['no service','web']
-    //     );
-    //     return view('sitesettings.settings')->with($data);
-    // }
 }

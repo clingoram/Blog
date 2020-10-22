@@ -121,32 +121,6 @@ class UsersController extends Controller
             // return $this->response->error('帳號重複', 409);
         }
         $now = new DateTime();
-                
-        // find max id from table users
-        // $find_max_user_id = User::max('id');
-        $find_max_user_id = User::count('id');
-        //  var_dump($find_max_user_id);die();
-
-        if($find_max_user_id >= 1){
-            $increase = intval($find_max_user_id)+1;
-        }else{
-            $increase = 1;
-        };
-
-        // Insert sitesetting when user register
-        $insert_sitesetting = Sitesetting::create([
-            'member_id' => $increase,
-            'created_at' => $now,
-            'updated_at' => $now,
-            'site_status' => 'on'
-        ]);
-        // $memberlog = new Sitesetting;
-        // $memberlog->member_id = $increase;
-        // $memberlog->updated_at = $now;
-        // $memberlog->created_at = $now;
-        // $memberlog->site_status = 'on';
-        // $memberlog->save();
-        // var_dump($insert_sitesetting);die();
 
         // Insert data when user register success
         $insert_user = User::create([
@@ -160,14 +134,33 @@ class UsersController extends Controller
             'updated_at' => $now,
             'created_at' => $now
         ]);
+        
+        // find max id from table users
+        // $find_max_user_id = User::max('id');
+        // $find_max_user_id = User::count('id');
 
-        // Insert user log
-        $insert_userlog = Userlog::create([
-            'member_id' => $insert_sitesetting['member_id'],
-            'note' => $datas['name'].'註冊',
-            'updated_at' => date("Y-m-d h:i:s a", time())
-        ]);
+        // if($find_max_user_id >= 1){
+        //     $increase = intval($find_max_user_id)+1;
+        // }else{
+        //     $increase = 1;
+        // };
+
+        // // Insert sitesetting when user register
+        // $insert_sitesetting = Sitesetting::create([
+        //     'member_id' => $increase,
+        //     'created_at' => $now,
+        //     'updated_at' => $now,
+        //     'site_status' => 'on'
+        // ]);
+        
+        // // Insert user log
+        // $insert_userlog = Userlog::create([
+        //     'member_id' => $insert_sitesetting['member_id'],
+        //     'note' => $datas['name'].'註冊',
+        //     'updated_at' => date("Y-m-d h:i:s a", time())
+        // ]);
 
         return view('home');
     }
+
 }
