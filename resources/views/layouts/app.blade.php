@@ -35,9 +35,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        {{-- <a class="dropdown-item" href="/articles">Your stories</a> --}}
-                    </ul>
+                    {{-- <ul class="navbar-nav mr-auto">
+
+                    </ul> --}}
                     
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -110,9 +110,6 @@
             @include('inc.messages')
             @yield('content')    
         </main>
-        {{-- <main class="py-4 container">
-            @include('layouts.footer')
-        </main> --}}
 
     </div>
 </body>
