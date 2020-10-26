@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth::routes();
+Auth::routes();
 
 // home
 Route::get('/home', 'HomeController@index')->name('home');
@@ -24,19 +24,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','PagesController@index');
 
 // login
-Route::group(['prefix' => 'login'], function () {
-    Route::get('/', 'UsersController@showLogin');
-    Route::post('/', 'UsersController@userLogin');
-});
+// Route::group(['prefix' => 'login'], function () {
+//     Route::get('/', 'UsersController@showLogin');
+//     Route::post('/', 'UsersController@userLogin');
+// });
 // logout
-Route::group(['prefix'=>'logout'],function(){
-    Route::post('/', 'UsersController@userLogout');
-});
+// Route::group(['prefix'=>'logout'],function(){
+//     Route::post('/', 'UsersController@userLogout');
+// });
 // register
-Route::group(['prefix'=>'register'],function(){
-    Route::get('/', 'UsersController@showRegister');
-    Route::post('/', 'UsersController@userRegister');
-});
+// Route::group(['prefix'=>'register'],function(){
+//     Route::get('/', 'UsersController@showRegister');
+//     Route::post('/', 'UsersController@userRegister');
+// });
 
 // Route::get('/about','PagesController@about');
 
