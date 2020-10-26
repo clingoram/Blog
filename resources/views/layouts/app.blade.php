@@ -35,9 +35,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        {{-- <a class="dropdown-item" href="/articles">Your stories</a> --}}
-                    </ul>
+                    {{-- <ul class="navbar-nav mr-auto">
+
+                    </ul> --}}
                     
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -45,14 +45,14 @@
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                {{-- <a class="nav-link" href="/login">Login</a> --}}
+                                {{-- <a class="nav-link" href="/login">Login Here</a> --}}
 
                             </li>
                             @if (Route::has('register'))
                             
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    {{-- <a class="nav-link" href="/register">Register</a> --}}
+                                    {{-- <a class="nav-link" href="/register">Register here</a> --}}
 
                                 </li>
 
@@ -96,7 +96,6 @@
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     {{-- <form id="logout-form" action="/logout" method="POST" class="d-none"> --}}
-                                    
                                         @csrf
                                     </form>
                                 </div>
@@ -111,9 +110,6 @@
             @include('inc.messages')
             @yield('content')    
         </main>
-        {{-- <main class="py-4 container">
-            @include('layouts.footer')
-        </main> --}}
 
     </div>
 </body>

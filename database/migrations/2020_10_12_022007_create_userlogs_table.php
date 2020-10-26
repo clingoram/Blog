@@ -13,14 +13,16 @@ class CreateUserlogsTable extends Migration
      */
     public function up()
     {   
-        // A table which record user who is login,logout,update,delete or insert posts,etc. 
-        Schema::create('userlogs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('member_id')->comment('會員ID');
-            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('note')->comment('會員action訊息');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('userlogs')){
+            // A table which record user who is login,logout,update,delete or insert posts,etc. 
+            Schema::create('userlogs', function (Blueprint $table) {
+                $table->id();
+                $table->integer('member_id')->comment('會員ID');
+                $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');
+                $table->string('note')->comment('會員action訊息');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

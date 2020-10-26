@@ -25,7 +25,9 @@
                 <div class="card-body">
                 <h3 class="card-title">{{ $articles->title }}</h3>
                 <div class="col-8">
-                    <img style="width:200px" src="/storage/images/{{$articles->images}}">
+                    @if(isset($articles->images) AND $articles->images != 'no_image.jpeg')
+                        <img style="width:200px" src="/storage/images/{{$articles->images}}">
+                    @endif
                 </div>
                 <p class="card-text">{{ $articles->content }}</p>
                 </div>

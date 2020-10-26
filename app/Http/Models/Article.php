@@ -11,7 +11,11 @@ class Article extends Model
     // primary key
     public $primaryKey = 'id';
     // timestamps
-    public $timestamps = false;
+    // public $timestamps = false;
+
+    protected $fillable =[
+        'user_id','title','content','images'
+    ];
 
     // 一對一
     public function user()
