@@ -10,7 +10,7 @@ class LoginTest extends TestCase
 {
   public function testLoginpage()
   {
-        $response = $this->route(route('login'));
+        $response = $this->get(route('login'));
         $response->assertSuccessful();
   }
 
