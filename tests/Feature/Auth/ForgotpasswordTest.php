@@ -12,7 +12,7 @@ class ForgotpasswordTest extends TestCase
 {
     public function testForgotpasswordpage()
     {
-        $response = $this->get(route('ssword.request'));
+        $response = $this->get(route('password.request'));
         $response->assertSuccessful();
     }
 
