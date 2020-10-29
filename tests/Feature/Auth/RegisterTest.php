@@ -23,7 +23,7 @@ class RegisterTest extends TestCase
             'account' => $user->account,
             'email' => $user->email,
             'role' => $user->role,
-            'password' => 'password', // default fake pwd
+            'password' => 'password', // Default fake pwd
             'password_confirmation' => 'password',
         ]);
 
