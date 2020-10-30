@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Userlog;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Userlog::class, function (Faker $faker) {
     return [
         'member_id' => User::all()->random()->id,
         'note' => $faker->realText($maxNbChars = 50, $indexSize = 2),

@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
                 'account' => Str::random(6),
                 'name' => Str::random(10), // 產生長度 10 的字串
                 'password' => bcrypt('secret'), // 產生亂數密碼
+                // 'role' => Str::random(1),
                 'email' => Str::random(10) . '@gmail.com', 
                 'created_at' => now(),
                 'updated_at' => now(),
