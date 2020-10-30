@@ -11,11 +11,11 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        // 一次建立 10 筆
+        // 建 10 筆
         for ($i = 1; $i <= 10; $i++) {
             // 透過 DB class 建立資料
             DB::table('users')->insert([
-                'id' => rand(1, 100),
+                // 'id' => rand(1, 100),
                 'account' => Str::random(6),
                 'name' => Str::random(10), // 產生長度 10 的字串
                 'password' => bcrypt('secret'), // 產生亂數密碼
