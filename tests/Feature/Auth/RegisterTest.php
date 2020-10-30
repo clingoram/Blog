@@ -18,10 +18,12 @@ class RegisterTest extends TestCase
     {
         $user = factory(User::class)->make();
         $response = $this->post(route('register'),[
+            'id' => $user->id,
             'name' => $user->name,
             'account' => $user->account,
             'email' => $user->email,
-            'password' => 'password', // default fake pwd
+            'role' => $user->role,
+            'password' => 'password', // Default fake pwd
             'password_confirmation' => 'password',
         ]);
 
@@ -33,6 +35,7 @@ class RegisterTest extends TestCase
             'name' => $user->name,
             'account' => $user->account,
             'email' => $user->email,
+            'role' => $user->role
         ]);
         $this->assertTrue(
             Hash::check('password', User::where('email', $user->email)->first()->password)
