@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
 
         // 清空資料表，避免每次執行都會增加10筆資料
         $db = DB::table('users')->get();
-        if(count($db) > 0){
+        if(count($db) != 0){
             DB::table('users')->truncate();
-            DB::table('userlogs')->truncate();
+            // DB::table('userlogs')->truncate();
         }else{
             // 呼叫寫好的 Seeder
             $this->call(UserTableSeeder::class);
