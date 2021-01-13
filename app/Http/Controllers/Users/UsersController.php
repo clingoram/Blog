@@ -117,7 +117,6 @@ class UsersController extends Controller
         $validator = Validator::make($datas, $rules);
         
         if ($validator->fails()) {
-            // $this->response->errorBadRequest($validator->errors());
             return response()->json(['message' => $validator->errors(), 'status_code' => 400], 400);
         }
 
@@ -126,7 +125,6 @@ class UsersController extends Controller
 
         if ($find_user != false) {
             return response()->json(['message'=>'帳號重複','status_code'=>409],409);
-            // return $this->response->error('帳號重複', 409);
         }
         $now = new DateTime();
 

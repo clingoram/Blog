@@ -23,16 +23,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 // pages
 Route::get('/','PagesController@index');
 
-// login
+// // login
 // Route::group(['prefix' => 'login'], function () {
 //     Route::get('/', 'UsersController@showLogin');
 //     Route::post('/', 'UsersController@userLogin');
 // });
-// logout
+// // logout
 // Route::group(['prefix'=>'logout'],function(){
 //     Route::post('/', 'UsersController@userLogout');
 // });
-// register
+// // register
 // Route::group(['prefix'=>'register'],function(){
 //     Route::get('/', 'UsersController@showRegister');
 //     Route::post('/', 'UsersController@userRegister');
